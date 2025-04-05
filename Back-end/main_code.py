@@ -1,4 +1,4 @@
-from functions import funs
+from functions import funcs
 import types
 
 def main():
