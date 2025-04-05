@@ -7,3 +7,4 @@
 - It will complete the code when space key clicked
 ## Please send your pull requests to publish the website soon!
 ## Thanks!
+python | web | backend | frontend | JavaScript | html | css | code | editor | auto complete
