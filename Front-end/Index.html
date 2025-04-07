@@ -1,11 +1,28 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <link rel="stylesheet" type="text/css" href="Style.css">
-    <script src="script.js" defer></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Python Code Suggester</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.css" />
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+      background: #121212;
+      color: #eee;
+    }
+    #editor {
+      height: 400px;
+      border: 1px solid #444;
+    }
+  </style>
 </head>
 <body>
-    <div class="code">
-        <textarea placeholder="print('Hello, World!')" id="auto"></textarea>
-    </div>
+  <h1>Python Code Suggester 🐍</h1>
+  <textarea id="editor"></textarea>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/python/python.min.js"></script>
+  <script src="Script.js"></script>
 </body>
 </html>
