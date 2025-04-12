@@ -1,22 +1,230 @@
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="Style.css">
-    <script src="script.js" defer></script>
+  <title>Code Editor</title>
+  <style>
+  body {
+   background-color: #1E1E1E
+}
+.code {
+   width: 100%;
+   height: 90vh;
+   display: flex;
+   justify-content: center;
+   align-items: center
+}
+
+.code textarea {
+   position: fixed;
+   right: 0;
+   top: 3.5%;
+   width: 92%;
+   height: 100vh;
+   background-color: #1E1E1E;
+   color: white;
+   font-size: 15px;
+   padding: 10px;
+   border-radius: 0%;
+   border: none
+}
+input[type = "range"] {
+   accent-color: #5900CE;
+   width: 5%;
+   position: fixed;
+   top: 5%;
+   left: 1.5%;
+   outline: none
+}
+.bott {
+   background-color: #141414;
+   position: fixed;
+   left: 0;
+   top: 0;
+   width: 8%;
+   height: 100%
+}
+.boot {
+   background-color: #141414;
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 3.5%
+}
+#themes {
+   background-color: black;
+   color: lightgray;
+   position: fixed;
+   top: 15%;
+   left: 1.5%;
+   width: 5%
+}
+.total {
+   color: #FF5500;
+   position: fixed;
+   top: 2%;
+   right: 2%
+}
+input[type = "button"] {
+   position: fixed;
+   top: 90%;
+   left: 0.5%;
+   width: 7%;
+   height: 7%;
+   background-color: #656161;
+   color: #B2B2B2;
+   text-align: center
+}
+#window {
+   background-color: black;
+   color: white;
+   width: 36%;
+   height: 36%
+}
+  </style>
 </head>
 <body>
-    <nav class="toolkit">
-    <button>Undo</button>
-    <button>Redo</button>
-    <button>Open</button>
-    <button>Save</button>
-    <button>New</button
-    <button>Copy</button>
-    <button>Paste</button>
-    <button>Languages</button>
-    </nav>
-    <div class="code">
-        <textarea placeholder="print('Hello, World!')" id="auto"></textarea>
-    </div>
+  <div class = "code">
+      <textarea placeholder = "print('Hello, World!')" id = "auto" oninput = "com(this.value)"></textarea>
+  </div>
+  <div class = "bott" id = "bott"></div>
+  <div class = "boot" id = "boot"></div>
+  <input type = "range" id = "size" oninput = "fonter(this.value)">
+ <select onchange = "theme(this.value)" id = "themes">
+  <option value = "dark">dark</option>
+  <option value = "light">light</option>
+ </select>
+ <div class = "total"><p id = "lineget"></p></div>
+ <input value = "stats" type = "button" onclick = "showit()" id = "ons">
+ <dialog id = "window" onclick = "document.getElementById('window').close()">
+  <style>
+  #offs {
+     position: fixed;
+     left: 67.7%;
+     top: 28%
+  }
+  </style>
+  <p id = "totalines"></p>
+  <p id = "totalwords"></p>
+  <p id = "totalchars"></p>
+ </dialog>
 </body>
-</html>
-
+<script>
+let x = document.getElementById("auto");
+let f = document.getElementById("size");
+let down = document.getElementById("bott");
+let up = document.getElementById("boot");
+let sel = document.getElementById("themes");
+let win = document.getElementById("window");
+let on = document.getElementById("ons");
+let build = ["print", "__init__(self)", "def ", "if ", "else", "elif ", "try", "ArithmeticError", "AssertionError", "AttributeError", "BaseException", "BaseExceptionGroup", "BlockingIOError", "BrokenPipeError", "BufferError", "BytesWarning", "ChildProcessError", "ConnectionAbortedError", "ConnectionError", "ConnectionRefusedError", "ConnectionResetError", "DeprecationWarning", "EOFError", "Ellipsis", "EncodingWarning", "EnvironmentError", "Exception", "ExceptionGroup", "False", "FileExistsError", "FileNotFoundError", "FloatingPointError", "FutureWarning", "GeneratorExit", "IOError", "ImportError", "ImportWarning", "IndentationError", "IndexError", "InterruptedError", "IsADirectoryError", "KeyError", "KeyboardInterrupt", "LookupError", "MemoryError", "ModuleNotFoundError", "NameError", "None", "NotADirectoryError", "NotImplemented", "NotImplementedError", "OSError", "OverflowError", "PendingDeprecationWarning", "PermissionError", "ProcessLookupError", "RecursionError", "ReferenceError", "ResourceWarning", "RuntimeError", "RuntimeWarning", "StopAsyncIteration", "StopIteration", "SyntaxError", "SyntaxWarning", "SystemError", "SystemExit", "TabError", "TimeoutError", "True", "TypeError", "UnboundLocalError", "UnicodeDecodeError", "UnicodeEncodeError", "UnicodeError", "UnicodeTranslateError", "UnicodeWarning", "UserWarning", "ValueError", "Warning", "ZeroDivisionError", "__build_class__", "__debug__", "__doc__", "__import__", "__loader__", "__name__", "__package__", "__spec__", "abs", "aiter", "all", "anext", "any", "ascii", "bin", "bool", "breakpoint", "bytearray", "bytes", "callable", "chr", "classmethod", "compile", "complex", "copyright", "credits", "delattr", "dict", "dir", "divmod", "enumerate", "eval", "exec", "exit", "filter", "float", "format", "frozenset", "getattr", "globals", "hasattr", "hash", "help", "hex", "id", "input", "int", "isinstance", "issubclass", "iter", "len", "license", "list", "locals", "map", "max", "memoryview", "min", "next", "object", "oct", "open", "ord", "rint", "print", "pow", "property", "quit", "range", "repr", "reversed", "round", "set", "setattr", "slice", "sorted", "staticmethod", "str", "sum", "super", "tuple", "type", "vars", "zip"
+];
+document.getElementById("totalines").innerHTML = "total lines = 0"
+document.getElementById("totalwords").innerHTML = "total words = 0"
+document.getElementById("totalchars").innerHTML = "total chars = 0"
+document.getElementById("lineget").innerHTML = 1
+function fonter(val) {
+   let y = val;
+   x.style.fontSize = String(y / 3.333) + "px";
+};
+function theme(name) {
+   if (name === "dark") {
+      x.style.backgroundColor = "#1E1E1E"
+      x.style.color = "white";
+      f.style.accentColor = "#5900CE";
+      down.style.backgroundColor = "#141414";
+      up.style.backgroundColor = "#141414";
+      sel.style.backgroundColor = "black";
+      sel.style.color = "lightgray";
+      win.style.backgroundColor = "black";
+      win.style.color = "white"
+      on.style.color = "B2B2B2"
+      on.style.backgroundColor = "656161"
+   }
+   else if (name === "light") {
+      x.style.backgroundColor = "#FAFAFA"
+      x.style.color = "black";
+      f.style.accentColor = "#00F4DE";
+      down.style.backgroundColor = "#EBEBEB";
+      up.style.backgroundColor = "#EBEBEB";
+      sel.style.backgroundColor = "#FAFAFA";
+      sel.style.color = "gray";
+      win.style.backgroundColor = "white";
+      win.style.color = "black"
+      on.style.color = "gray"
+      on.style.backgroundColor = "white"
+   }
+};
+function com(val) {
+   let v = x.value;
+   let lines = v.split("\n")
+   let lastline = lines[lines.length - 1];
+   var spaces = 0;
+   document.getElementById("lineget").innerHTML = lines.length
+   document.getElementById("totalines").innerHTML = "total lines = " + lines.length
+   document.getElementById("totalwords").innerHTML = "total words = " + v.split(" ").length
+   document.getElementById("totalchars").innerHTML = "total chars = " + v.length
+   for (let i = 0; i < lastline.length; i++) {
+      if (lastline[i] === " ") {
+         spaces = spaces + 1;
+      }
+      else {
+         break;
+      }
+   };
+   if (val.endsWith("^")) {
+      complete();
+   };
+   if (val.endsWith("(")) {
+      par("()");
+   }
+   if (val.endsWith("[")) {
+      par("[]");
+   }
+   if (val.endsWith("{")) {
+      par("{}");
+   }
+   if (val.endsWith(":")) {
+      let tabs = " ".repeat(spaces + 4);
+      let text = x.value;
+      text = text + "\n" + tabs;
+      x.value = text;
+      x.selectionEnd = text.length;
+   }
+};
+function complete() {
+   let text = x.value;
+   let word = text.split(" ");
+   let last = word[word.length - 1].slice(0, -1)
+   for (let i of build) {
+      if (i.includes(last)) {
+         word[word.length - 1] = i;
+         x.value = word.join(" ");
+         break;
+      };
+   };
+};
+function par(z) {
+   if (z === "()") {
+   let text = x.value;
+   text = text + ")";
+   x.value = text;
+   x.selectionEnd = text.length - 1;
+   };
+   if (z === "[]") {
+      let text = x.value;
+      text = text + "]";
+      x.value = text;
+      x.selectionEnd = text.length - 1;
+   };
+   if (z === "{}") {
+      let text = x.value;
+      text = text + "}";
+      x.value = text;
+      x.selectionEnd = text.length - 1;
+   };
+};
+function showit() {
+   document.getElementById("window").showModal()
+}
+</script>
+    </html>
